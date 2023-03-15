@@ -9,21 +9,21 @@ app = Flask(__name__)
 
 # %% ../notebooks/11-mind.ipynb 3
 import openai
-openai.api_key = '<OPENAI_API_KEY>'
 
 # %% ../notebooks/11-mind.ipynb 4
 @app.route('/<string:prompt>')
 def answer(prompt):
-    return openai.Completion.create(
-        engine='text-davinci-003',
-        prompt=prompt,
-        max_tokens=512,
-        temperature=0,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-        stop=None,
-    ).get('choices', [{}])[0].get('text', '').strip()
+    res = openai.Completion.create(
+        engine = 'text-davinci-003',
+        prompt = f'{prompt}\n',
+        max_tokens = 1024,
+        temperature = 0,
+        top_p = 0.9,
+        frequency_penalty = 0,
+        presence_penalty = 0,
+        stop = None,
+    )
+    return res.get('choices', [{}])[0].get('text', '').strip()
 
 # %% ../notebooks/11-mind.ipynb 5
 if __name__ == '__main__':
