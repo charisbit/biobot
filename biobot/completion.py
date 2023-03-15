@@ -20,7 +20,7 @@ from biobot.moderation import (
     send_moderation_blocked_message,
 )
 
-# %% ../notebooks/05_completion.ipynb 4
+# %% ../notebooks/05_completion.ipynb 5
 from enum import Enum
 from dataclasses import dataclass
 from typing import Optional, List

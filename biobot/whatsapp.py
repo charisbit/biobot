@@ -5,23 +5,26 @@ __all__ = []
 
 # %% ../notebooks/11-mind.ipynb 2
 from flask import Flask
-from revChatGPT.V1 import Chatbot, configure
-
-
 app = Flask(__name__)
-bot = Chatbot(
-    config = configure(),
-    conversation_id = 'fdf52ab3-f8c1-450f-86f2-5a25d43fc48d',
-    lazy_loading = True
-)
 
+# %% ../notebooks/11-mind.ipynb 3
+import openai
+openai.api_key = '<OPENAI_API_KEY>'
 
+# %% ../notebooks/11-mind.ipynb 4
 @app.route('/<string:prompt>')
 def answer(prompt):
-    for response in bot.ask(prompt):
-        pass
-    return response['message']
+    return openai.Completion.create(
+        engine='text-davinci-003',
+        prompt=prompt,
+        max_tokens=512,
+        temperature=0,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=None,
+    ).get('choices', [{}])[0].get('text', '').strip()
 
-
+# %% ../notebooks/11-mind.ipynb 5
 if __name__ == '__main__':
     app.run()

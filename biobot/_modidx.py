@@ -34,4 +34,5 @@ d = { 'settings': { 'branch': 'master',
                               'biobot.utils.is_last_message_stale': ('utils.html#is_last_message_stale', 'biobot/utils.py'),
                               'biobot.utils.should_block': ('utils.html#should_block', 'biobot/utils.py'),
                               'biobot.utils.split_into_shorter_messages': ('utils.html#split_into_shorter_messages', 'biobot/utils.py')},
-            'biobot.whatsapp': {'biobot.whatsapp.answer': ('11-mind.html#answer', 'biobot/whatsapp.py')}}}
+            'biobot.whatsapp': {'biobot.whatsapp.answer': ('11-mind.html#answer', 'biobot/whatsapp.py')},
+            'biobot.whatsapp_free': {'biobot.whatsapp_free.answer': ('12-free-mind.html#answer', 'biobot/whatsapp_free.py')}}}
