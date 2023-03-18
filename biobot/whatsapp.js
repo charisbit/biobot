@@ -21,28 +21,36 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    const prompt = querystring.escape(msg.body);
-    const url = `http://127.0.0.1:5000/${prompt}`;
+    msg.getQuotedMessage().then((quotedMsg) => {
+        let quote = '';
+        if (quotedMsg) {
+            quote = querystring.escape(
+                '```\n' + quotedMsg.body + '\n```\n\n'
+            );
+        }
+        const prompt = querystring.escape(msg.body);
+        const url = `http://127.0.0.1:5000/${quote}${prompt}`;
 
-    http.get(url, (res) => {
-        console.log(`Got response: ${res.statusCode}`);
+        http.get(url, (res) => {
+            console.log(`Got response: ${res.statusCode}`);
 
-        res.on('data', (chunk) => {
-            console.log(`Received data: ${chunk}`);
-            if (res.statusCode == 200) {
-                msg.reply(`${chunk}`);
-            }
-        });
+            res.on('data', (chunk) => {
+                console.log(`Received data: ${chunk}`);
+                if (res.statusCode == 200) {
+                    msg.reply(`${chunk}`);
+                }
+            });
 
-        res.on('end', () => {
+            res.on('end', () => {
+                console.log('---');
+            });
+        }).on('error', (err) => {
+            console.error(`Got error: ${err.message}`);
             console.log('---');
         });
-    }).on('error', (err) => {
-        console.error(`Got error: ${err.message}`);
-        console.log('---');
-    });
 
-    console.log('Sent request.');
+        console.log('Sent request.');
+    });
 });
 
 client.initialize();
