@@ -25,11 +25,11 @@ client.on('message', msg => {
         let quote = '';
         if (quotedMsg) {
             quote = querystring.escape(
-                '```\n' + quotedMsg.body + '\n```\n\n'
+                '```\n' + quotedMsg.body.replace(/```/g, '') + '\n```\n\n'
             );
         }
         const prompt = querystring.escape(msg.body);
-        const url = `http://127.0.0.1:5000/${quote}${prompt}`;
+        const url = `http://127.0.0.1:5000/?q=${quote}${prompt}`;
 
         http.get(url, (res) => {
             console.log(`Got response: ${res.statusCode}`);
@@ -49,7 +49,7 @@ client.on('message', msg => {
             console.log('---');
         });
 
-        console.log('Sent request.');
+        console.log(`Sent request: ${url}`);
     });
 });
 

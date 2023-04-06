@@ -4,15 +4,16 @@
 __all__ = []
 
 # %% ../notebooks/11-mind.ipynb 2
-from flask import Flask
+from flask import Flask, request
 app = Flask(__name__)
 
 # %% ../notebooks/11-mind.ipynb 3
 import openai
 
 # %% ../notebooks/11-mind.ipynb 4
-@app.route('/<string:prompt>')
-def answer(prompt):
+@app.route('/')
+def answer():
+    prompt = request.args.get('q')
     res = openai.Completion.create(
         engine = 'text-davinci-003',
         prompt = f'{prompt}\n',

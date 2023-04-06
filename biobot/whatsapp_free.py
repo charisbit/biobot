@@ -4,7 +4,7 @@
 __all__ = []
 
 # %% ../notebooks/12-free-mind.ipynb 2
-from flask import Flask
+from flask import Flask, request
 from revChatGPT.V1 import Chatbot, configure
 
 
@@ -16,8 +16,9 @@ bot = Chatbot(
 )
 
 
-@app.route('/<string:prompt>')
-def answer(prompt):
+@app.route('/')
+def answer():
+    prompt = request.args.get('q')
     for response in bot.ask(prompt):
         pass
     return response['message']
