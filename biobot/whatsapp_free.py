@@ -5,24 +5,18 @@ __all__ = []
 
 # %% ../notebooks/12-free-mind.ipynb 2
 from flask import Flask, request
-from revChatGPT.V1 import Chatbot, configure
+from ipymock.mock import start_conversation as ask
 
-
+# %% ../notebooks/12-free-mind.ipynb 3
 app = Flask(__name__)
-bot = Chatbot(
-    config = configure(),
-    conversation_id = 'fdf52ab3-f8c1-450f-86f2-5a25d43fc48d',
-    lazy_loading = True
-)
-
 
 @app.route('/')
 def answer():
     prompt = request.args.get('q')
-    for response in bot.ask(prompt):
+    for response in ask(prompt):
         pass
-    return response['message']
+    return response
 
-
+# %% ../notebooks/12-free-mind.ipynb 4
 if __name__ == '__main__':
     app.run(threaded=False)
