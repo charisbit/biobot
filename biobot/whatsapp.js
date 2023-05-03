@@ -5,9 +5,9 @@ const qrcode = require('qrcode-terminal');
 const { Client } = require('whatsapp-web.js');
 
 const client = new Client({
-	puppeteer: {
-		args: ['--no-sandbox'],
-	}
+    puppeteer: {
+        args: ['--no-sandbox'],
+    }
 });
 
 client.on('qr', (qr) => {
