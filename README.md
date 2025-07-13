@@ -1,137 +1,178 @@
-# BioGPT Chatbot
-> A BioGPT Chatbot of Discord and WhatsApp.
+# BioBot
 
+A powerful chatbot powered by BioGPT that works seamlessly across Discord and WhatsApp platforms. BioBot provides intelligent conversational AI capabilities with support for biomedical and general purpose conversations.
 
-This file will become your README and also the index of your documentation.
+## Features
 
-## Install
+- 🤖 BioGPT-powered conversational AI
+- 💬 Discord bot integration
+- 📱 WhatsApp bot support
+- 🔧 Easy configuration and deployment
+- 🛡️ Built-in moderation capabilities
+
+## Quick Start
+
+### Installation
+
+Install BioBot using pip:
 
 ```bash
-%%bash
 pip install biobot
 ```
 
-## How to use
+### Discord Bot Setup
 
----
-Set your credentials with environment variables. And then run the command below to launch your Discord Chatbot.
+1. Set your Discord bot credentials as environment variables
+2. Launch the Discord chatbot:
 
 ```bash
-%%bash
 python -m biobot.discord
 ```
 
----
-Configure Access Token for WhatsApp Chatbot
+### WhatsApp Bot Setup
+
+1. Create the configuration directory:
 
 ```bash
-%%bash
 mkdir -p ~/.config/ipymock
 ```
 
-💡　get \<access_token\>　=> [accessToken](https://chat.openai.com/api/auth/session)
+2. Get your access token from [OpenAI Chat](https://chat.openai.com/api/auth/session)
 
-```python
-%%writefile ~/.config/ipymock/config.json
+3. Create the configuration file:
+
+```bash
+cat > ~/.config/ipymock/config.json << EOF
 {
-  "access_token": "<access_token>"
+  "access_token": "<your_access_token_here>"
 }
+EOF
 ```
 
-## Initialization for Development
+4. Run the WhatsApp bot:
 
-### Initialize Zsh for Conda
-
-```python
-conda init zsh
+```bash
+python -m biobot.whatsapp
 ```
 
-### Create a Conda Virtual Environment for Jupyter
+## Development Setup
 
-```python
-yes | conda create --name biobot jupyter
-```
+### Prerequisites
 
-    ...
-      environment location: /usr/local/anaconda3/envs/biobot
-      registry file: /Users/saintway/.conda/environments.txt
-    done
-    
-    # To activate this environment, use
-    #
-    #     $ conda activate biobot
-    #
-    # To deactivate an active environment, use
-    #
-    #     $ conda deactivate
-    
+- Python 3.6+
+- Node.js and Yarn (for WhatsApp functionality)
+- Conda (recommended for environment management)
 
+### Environment Setup
 
-```python
-conda env list
-```
+1. Create and activate a conda environment:
 
-    # conda environments:
-    
-    base                     /usr/local/anaconda3
-    biobot                   /usr/local/anaconda3/envs/biobot
-    
-
-
-```python
+```bash
+conda create --name biobot python=3.8 jupyter
 conda activate biobot
 ```
 
----
-Install Python pip on Debian
+2. Install dependencies:
 
-```python
-sudo apt install python3-pip
+```bash
+pip install -e .
 ```
 
-```python
-pip install 'nbdev==1.*' 'ipymock==1.*' 'flask==2.*' 'discord.py==2.1.*' 'python-dotenv==0.21.*' 'openai==0.25.*' 'PyYAML==6.*' 'dacite==1.6.*'
+### System Dependencies
+
+#### For Debian/Ubuntu:
+
+```bash
+# Install system packages
+sudo apt update
+sudo apt install git make python3-pip nodejs yarn
+
+# Install WhatsApp web dependencies
+sudo apt install -y gconf-service libgbm-dev libasound2 libatk1.0-0 libc6 libcairo2 \
+  libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 \
+  libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 \
+  libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 \
+  libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
+  fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 ```
 
-```python
-pip show nbdev
-```
+#### For macOS:
 
-```python
-pip show ipymock
-```
-
----
-Install Yarn on macOS
-
-```python
+```bash
 brew install yarn
 ```
 
+### JavaScript Dependencies
+
+Install WhatsApp web dependencies:
+
+```bash
+yarn install
+```
+
+## Configuration
+
+Create environment variables for your bot credentials:
+
+```bash
+# Discord Bot Token
+export DISCORD_TOKEN="your_discord_bot_token"
+
+# OpenAI API Key (if using OpenAI instead of local model)
+export OPENAI_API_KEY="your_openai_api_key"
+```
+
+## Usage Examples
+
+### Basic Discord Integration
+
+```python
+from biobot.discord import DiscordBot
+
+bot = DiscordBot()
+bot.run()
+```
+
+### WhatsApp Integration
+
+```python
+from biobot.whatsapp import WhatsAppBot
+
+bot = WhatsAppBot()
+bot.start()
+```
+
+## Project Structure
+
+```
+biobot/
+├── biobot/           # Main package
+│   ├── discord.py    # Discord bot implementation
+│   ├── whatsapp.py   # WhatsApp bot implementation
+│   ├── base.py       # Base bot functionality
+│   ├── completion.py # AI completion handling
+│   └── moderation.py # Content moderation
+├── notebooks/        # Jupyter notebooks for development
+├── docs/            # Documentation
+└── tests/           # Test files
+```
+
+## License
+
+This project is licensed under the Apache Software License 2.0.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## Support
+
+For issues and questions, please visit the [GitHub repository](https://github.com/seii-saintway/biobot).
+
 ---
-Install Git Make Python NodeJS Yarn on Debian
 
-```python
-sudo apt install git make python3 nodejs yarn
-```
-
----
-Install whatsapp-web.js qrcode-terminal by Yarn
-
-```python
-sudo apt install -y gconf-service libgbm-dev libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
-```
-
-```python
-yarn add whatsapp-web.js qrcode-terminal
-```
-
-```python
-conda deactivate
-```
-
-### Delete a Conda Virtual Environment for Jupyter
-
-```python
-conda env remove --name biobot
-```
+*BioBot - Bringing intelligent conversation to your favorite platforms*
