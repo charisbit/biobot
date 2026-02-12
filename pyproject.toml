@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biobot"
+dynamic = ["version"]
+description = "A BioGPT Chatbot of Discord and WhatsApp."
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "Apache-2.0"}
+authors = [{name = "andrew saintway", email = "andrew.saintway@gmail.com"}]
+keywords = ['biogpt', 'discord', 'whatsapp', 'chatbot']
+classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 2 - Pre-Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
+dependencies = ['flask>=3.0.0', 'discord.py>=2.3.0', 'python-dotenv>=1.0.0', 'openai>=1.0.0', 'PyYAML>=6.0.1', 'dacite>=1.8.0', 'pytest>=7.0.0']
+
+[project.urls]
+Repository = "https://github.com/seii-saintway/biobot/tree/master/"
+Documentation = "https://seii-saintway.github.io/biobot/"
+
+[project.entry-points.nbdev]
+biobot = "biobot._modidx:d"
+
+[tool.setuptools.dynamic]
+version = {attr = "biobot.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["biobot"]
+
+[tool.nbdev]
+nbs_path = 'notebooks'
+doc_path = 'docs'
+branch = 'master'
+recursive = false
+title = 'biobot'
